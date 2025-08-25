@@ -1,0 +1,109 @@
+[gd_scene load_steps=17 format=3 uid="uid://cp1pvaptlyun4"]
+
+[ext_resource type="Script" path="res://Scenes/(gray_car)character_body_2d.gd" id="1_atu7t"]
+[ext_resource type="Texture2D" uid="uid://dxmwyx6vyoawq" path="res://Assets/Screenshot_2025-02-14_115224-removebg-preview.png" id="1_kcjsq"]
+[ext_resource type="Texture2D" uid="uid://l5sqwpkd7pm8" path="res://Assets/GrayDown1.png" id="2_hwrd2"]
+[ext_resource type="Texture2D" uid="uid://cq8q8thwsb4un" path="res://Assets/GrayDown2.png" id="3_ebxpv"]
+[ext_resource type="Texture2D" uid="uid://dyun8fps24cq6" path="res://Assets/GrayDown3BG.png" id="4_hn2o1"]
+[ext_resource type="Texture2D" uid="uid://q3nvcqd21jwt" path="res://Assets/GrayRun1.png" id="6_oveo1"]
+[ext_resource type="Texture2D" uid="uid://cugjacn0sprjw" path="res://Assets/Grayrun2.png" id="7_sjvgj"]
+[ext_resource type="Script" path="res://Scripts/player_state_machine.gd" id="8_lhrok"]
+[ext_resource type="Script" path="res://Scripts/state_idle.gd" id="9_hqpb8"]
+[ext_resource type="Script" path="res://Scripts/state_walk.gd" id="10_q7dal"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vopur"]
+radius = 76.0263
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10l0n"]
+atlas = ExtResource("1_kcjsq")
+region = Rect2(0, 0, 274, 215)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhd20"]
+atlas = ExtResource("1_kcjsq")
+region = Rect2(274, 0, 274, 215)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ci3ii"]
+atlas = ExtResource("1_kcjsq")
+region = Rect2(548, 0, 274, 215)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n84hd"]
+atlas = ExtResource("1_kcjsq")
+region = Rect2(822, 0, 274, 215)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bb4oy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_hwrd2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ebxpv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_hwrd2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hn2o1")
+}],
+"loop": true,
+"name": &"Down",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10l0n")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_oveo1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_sjvgj")
+}],
+"loop": true,
+"name": &"Up",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rhd20")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ci3ii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n84hd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ci3ii")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 6.0
+}]
+
+[node name="Gray_Car" type="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_atu7t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(12, 8)
+shape = SubResource("CircleShape2D_vopur")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bb4oy")
+animation = &"Up"
+frame = 1
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("8_lhrok")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("9_hqpb8")
+
+[node name="Walk" type="Node" parent="StateMachine"]
+script = ExtResource("10_q7dal")

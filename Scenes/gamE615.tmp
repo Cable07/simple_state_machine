@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvq37rprbntg6"]
+
+[ext_resource type="PackedScene" uid="uid://cp1pvaptlyun4" path="res://Scenes/(gray_car)character_body_2d.tscn" id="1_a6sh1"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Gray_Car" parent="." instance=ExtResource("1_a6sh1")]
+position = Vector2(570, 316)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(314, -120, 963, -120, 1490, 390, 978, 937, 327, 935, -168, 371, 399, -164, 331, -188, -213, 371, 319, 971, 1012, 973, 1528, 393, 975, -158)
